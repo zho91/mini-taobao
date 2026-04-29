@@ -472,4 +472,36 @@
         document.getElementById('select-all').addEventListener('change', function() {
             const checked = this.checked;
             cart.forEach(item => item.checked = checked);
-    
+                saveCart();
+            renderCart();
+        });
+
+        // 结算逻辑
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            document.getElementById('pay-modal').classList.add('show');
+        });
+
+        // 关闭支付弹窗
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('pay-modal').classList.remove('show');
+            // 支付后清空已选商品（模拟真实流程）
+            cart = cart.filter(item => !item.checked);
+            saveCart();
+            renderCart();
+        });
+
+        // 底部导航切换事件
+        document.querySelectorAll('.tab-item').forEach(item => {
+            item.addEventListener('click', () => {
+                switchPage(item.dataset.tab);
+            });
+        });
+
+        // 页面初始化
+        renderProducts();
+        updateCartBadge();
+        switchPage('home');
+    </script>
+</body>
+</html>
+
